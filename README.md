@@ -40,7 +40,7 @@ $ node_modules/.bin/sequelize
 
 With sequelize-cli, the ```model:generate``` command would produce _JavaScript_ files in two folders: 
 /models and /migrations, or other folders as specified in your .sequelizerc file.  The ```db:migrate``` 
-command would then exe ute these _JavaScript_ files to update your database.
+command would then execute these _JavaScript_ files to update your database.
 
 With sequelize-cli-typescript, ```model:generate``` produces _TypeScript_ files in the same two folders
 (or again, as specified in your .sequelizerc file).  But before you can run ```db:migrate``` you must
