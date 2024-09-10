@@ -1,6 +1,6 @@
 {
   "name": "sequelize-cli-typescript",
-  "version": "3.2.0c",
+  "version": "0.0.1",
   "description": "The Sequelize CLI (TypeScript)",
   "bin": {
     "sequelize": "./lib/sequelize"

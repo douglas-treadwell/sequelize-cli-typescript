@@ -1,4 +1,5 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { Sequelize } from 'sequelize';
+import sequelize from '@configs/database';
 
 <%
   function getType(dataType) {
@@ -36,32 +37,34 @@ import { Sequelize, DataTypes } from 'sequelize';
   }
 %>
 
-export interface <%= name[0].toUpperCase() + name.substr(1) %>Attributes {
-  <% attributes.forEach(function(attribute) {
+export type <%= name[0].toUpperCase() + name.substr(1) %>Attributes = {
+  <% attributes.forEach((attribute) => {
   %><%= attribute.fieldName %>?: <%= getType(attribute.dataType) %>
   <%
   }) %>
 }
 
-export interface <%= name[0].toUpperCase() + name.substr(1) %>Instance {
+export type <%= name[0].toUpperCase() + name.substr(1) %>Instance = {
   id: number;
   createdAt: Date;
   updatedAt: Date;
 
-  <% attributes.forEach(function(attribute) {
+  <% attributes.forEach((attribute) => {
   %><%= attribute.fieldName %>: <%= getType(attribute.dataType) %>
   <%
   }) %>
 }
 
-export = (sequelize: Sequelize, DataTypes: DataTypes) => {
-  var <%= name %> = sequelize.define('<%= name %>', {
-    <% attributes.forEach(function(attribute, index) { %><%= attribute.fieldName %>: DataTypes.<%= attribute.dataFunction ? `${attribute.dataFunction.toUpperCase()}(DataTypes.${attribute.dataType.toUpperCase()})` : attribute.dataType.toUpperCase() %><%= (Object.keys(attributes).length - 1) > index ? ',' : '' %><% }) %>
+const init = (sequelize: Sequelize) => {
+  const <%= name %> = sequelize.define('<%= name %>', {
+    <% attributes.forEach(function(attribute, index) { %><%= attribute.fieldName %>: Sequelize.<%= attribute.dataFunction ? `${attribute.dataFunction.toUpperCase()}(DataTypes.${attribute.dataType.toUpperCase()})` : attribute.dataType.toUpperCase() %><%= (Object.keys(attributes).length - 1) > index ? ',' : '' %><% }) %>
   }<%= underscored ? ', { underscored: true }' : '' %>);
 
-  <%= name %>.associate = function(models) {
+  <%= name %>.associate = (models) => {
     // associations can be defined here
   };
 
   return <%= name %>;
 };
+
+export default init(sequelize)

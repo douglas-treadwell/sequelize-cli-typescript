@@ -1,6 +1,6 @@
 import { QueryInterface, SequelizeStatic } from 'sequelize';
 
-export = {
+export default {
     up: (queryInterface: QueryInterface, Sequelize: SequelizeStatic) => {
         return queryInterface.createTable('<%= tableName %>', {
             id: {
